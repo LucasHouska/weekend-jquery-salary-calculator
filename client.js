@@ -41,7 +41,7 @@ function readyNow() {
                 <td>${employee.lastName}</td>
                 <td>${employee.idNumber}</td>
                 <td>${employee.jobTitle}</td>
-                <td>${employee.annualSalary}</td>
+                <td class="salary">${employee.annualSalary}</td>
                 <td><button class="deleteButton">Delete</button></td>
             </tr>
         `);
@@ -67,8 +67,18 @@ function readyNow() {
         $('.deleteButton').on('click', removeEmployee)
 
         function removeEmployee() {
+            let costRemoved = $(this).closest('tr').children('.salary').text()
+
+            cost = cost - costRemoved
+
+            $('.cost').empty();
+
+            $('.cost').append(`<h1>${cost}</h1>`)
+
             $(this).closest('tr').remove();
-            
+
+            // console.log($(this).closest('tr').children('employee.annualSalary').text())
+
         }
     }
 }
