@@ -9,7 +9,11 @@ function readyNow() {
 
     let costs = [];
 
-    let cost = 
+    // let cost = 0;
+
+    // for (const salary of costs) {
+    //     cost += salary;
+    // }
 
     $('.submitButton').on('click', submitEmployee)
 
@@ -38,20 +42,34 @@ function readyNow() {
                 <td>${employee.idNumber}</td>
                 <td>${employee.jobTitle}</td>
                 <td>${employee.annualSalary}</td>
+                <td><button class="deleteButton">Delete</button></td>
             </tr>
         `);
 
         $('.input').val('');
+        $('.cost').empty();
 
 
+        costs.push(Number(employee.annualSalary))
 
-        cost.push(Number(employee.annualSalary))
+        let cost = 0;
 
-        $('.cost').append(`
-            <div>
-                <h1>${cost}</h1>
-            </div>
-        `)
+        for (const salary of costs) {
+            cost += salary;
+        }
+
+        $('.cost').append(`<h1>${cost}</h1>`)
+
+        if(cost > 20000) {
+            $('.cost').attr('class', 'red');
+        }
+
+        $('.deleteButton').on('click', removeEmployee)
+
+        function removeEmployee() {
+            $(this).closest('tr').remove();
+            
+        }
     }
 }
 
