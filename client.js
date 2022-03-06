@@ -5,17 +5,14 @@ $(readyNow);
 function readyNow() {
     console.log('JQuery is ready!');
 
+    $('.submitButton').on('click', submitEmployee)
+
     let employees = [];
 
     let costs = [];
 
-    // let cost = 0;
+    let globalCost = cost;
 
-    // for (const salary of costs) {
-    //     cost += salary;
-    // }
-
-    $('.submitButton').on('click', submitEmployee)
 
     function submitEmployee() {
         let employee = {
@@ -25,11 +22,6 @@ function readyNow() {
             jobTitle: $('.jobTitle').val(),
             annualSalary: $('.annualSalary').val()
         };
-        // let firstName = $('.firstName').val();
-        // let lastName = $('.lastName').val();
-        // let idNumber = $('.idNumber').val();
-        // let jobTitle = $('.jobTitle').val();
-        // let annualSalary = $('.annualSalary').val();
 
         employees.push(employee)
 
@@ -61,8 +53,11 @@ function readyNow() {
         $('.cost').append(`<h1>${cost}</h1>`)
 
         if(cost > 20000) {
-            $('.cost').attr('class', 'red');
+            $(".cost").attr("id", "red");
         }
+
+
+
 
         $('.deleteButton').on('click', removeEmployee)
 
@@ -71,15 +66,21 @@ function readyNow() {
 
             cost = cost - costRemoved
 
+            costs.pop(costRemoved);
+
             $('.cost').empty();
 
             $('.cost').append(`<h1>${cost}</h1>`)
 
             $(this).closest('tr').remove();
 
-            // console.log($(this).closest('tr').children('employee.annualSalary').text())
+            if(cost <= 20000) {
+                $(".cost").removeAttr("id", "red");
+            }
 
+            check();
         }
+        check();
     }
 }
 
